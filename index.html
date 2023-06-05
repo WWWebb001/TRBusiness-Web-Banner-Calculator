@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Advertisement Cost Calculator: HOMEPAGE</title>
+
+<style>
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+form {
+  margin-bottom: 20px;
+text-align: center;
+}
+
+label {
+text-align: center;
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+select {
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+button {
+  width: 100px;
+  padding: 10px 0;
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+  background-color: #A2185B;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#result, #discountedResult {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+#logo {
+  text-align: center;
+}
+
+#logo img {
+  max-width: 200px;
+}
+  </style>
+
+  <script>
+    function calculateCost() {
+      var adType = document.getElementById("adType").value;
+      var exposureLevel = document.getElementById("exposureLevel").value;
+      var numMonths = document.getElementById("numMonths").value;
+
+      var adCost;
+      if (adType === "headlineBanner") {
+        adCost = 5250;
+      } else if (adType === "heroBanner") {
+        adCost = 5250;
+      } else if (adType === "button") {
+        adCost = 2951;
+      } else if (adType === "banner") {
+        adCost = 2220;
+      } else if (adType === "skyscraper") {
+        adCost = 4440;
+      } else if (adType === "landscapeBanner") {
+        adCost = 4440;
+      } else if (adType === "mobileHeadlineBanner") {
+        adCost = 2625;
+      } else if (adType === "mobileSquareBanner") {
+        adCost = 2213;
+      }
+
+      var exposurePercentage;
+      if (exposureLevel === "maximum") {
+        exposurePercentage = 1;
+      } else if (exposureLevel === "high") {
+        exposurePercentage = 0.8;
+      } else if (exposureLevel === "mediumHigh") {
+        exposurePercentage = 0.6;
+      } else if (exposureLevel === "medium") {
+        exposurePercentage = 0.4;
+      } else if (exposureLevel === "basic") {
+        exposurePercentage = 0.2;
+      }
+
+      var totalCost = adCost * exposurePercentage * numMonths;
+      var roundedCost = Math.round(totalCost);
+
+      document.getElementById("result").innerHTML = "Total Cost: £" + roundedCost;
+
+      // Show discount section
+      document.getElementById("discountSection").style.display = "block";
+    }
+
+    function calculateDiscount() {
+      var roundedCost = parseInt(document.getElementById("result").innerHTML.split("£")[1]);
+      var discountPercentage = parseInt(document.getElementById("discount").value);
+      var discountedCost = roundedCost - (roundedCost * (discountPercentage / 100));
+      var roundedDiscountedCost = Math.round(discountedCost);
+
+      document.getElementById("discountedResult").innerHTML = "Discounted Cost: £" + roundedDiscountedCost;
+    }
+
+    function resetCalculator() {
+      document.getElementById("result").innerHTML = "";
+      document.getElementById("discountSection").style.display = "none";
+      document.getElementById("discountedResult").innerHTML = "";
+      document.getElementById("discount").selectedIndex = 0;
+    }
+  </script>
+</head>
+<body>
+  <div id="logo">
+    <img src="trbusiness_logo.png" alt="TRBusiness Logo">
+  </div>
+
+  <h1>Advertisement Cost Calculator</h1>
+  <form>
+    <label for="adType">Advertisement type:</label>
+
+    <select id="adType">
+      <option value="headlineBanner">920x130 Headline Banner</option>
+      <option value="heroBanner">210x350 Hero Banner</option>
+      <option value="button">330x330 Button</option>
+      <option value="banner">330x160 Banner</option>
+      <option value="skyscraper">330x600 Skyscraper</option>
+      <option value="landscapeBanner">896x208 Landscape Banner</option>
+      <option value="mobileHeadlineBanner">Mobile Headline Banner</option>
+      <option value="mobileSquareBanner">Mobile Square Banner</option>
+    </select>
+
+    <br>
+
+    <label for="exposureLevel">Exposure levels:</label>
+    <select id="exposureLevel">
+      <option value="maximum">Maximum - 100% of impressions</option>
+      <option value="high">High - 80% of impressions</option>
+      <option value="mediumHigh">Medium/high - 60% of impressions</option>
+      <option value="medium">Medium - 40% of impressions</option>
+      <option value="basic">Basic - 20% of impressions</option>
+    </select>
+
+    <br>
+
+    <label for="numMonths">Number of months:</label>
+    <select id="numMonths">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+      <option value="11">11</option>
+      <option value="12">12</option>
+    </select>
+
+    <br>
+<br>
+    <button type="button" onclick="calculateCost()">Calculate Cost</button>
+  </form>
+
+  <div id="result"></div>
+<br>
+  <div id="discountSection" style="display: none; text-align: center;">
+  <label for="discount">Apply Discount:</label>
+  <select id="discount">
+      <option value="5">5%</option>
+      <option value="10">10%</option>
+      <option value="15">15%</option>
+      <option value="20">20%</option>
+      <option value="25">25%</option>
+      <option value="30">30%</option>
+      <option value="35">35%</option>
+      <option value="40">40%</option>
+      <option value="45">45%</option>
+      <option value="50">50%</option>
+      <option value="55">55%</option>
+      <option value="60">60%</option>
+      <option value="65">65%</option>
+      <option value="70">70%</option>
+    </select>
+<br>
+    <button type="button" onclick="calculateDiscount()">Calculate Discount</button>
+  </div>
+
+  <div id="discountedResult"></div>
+<br>
+  <button type="button" onclick="resetCalculator()">Start Again</button>
+</body>
+</html>
